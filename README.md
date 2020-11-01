@@ -18,4 +18,10 @@ Raising Hand
 Changing the View in The Meeting
 
 ## Screenshots
-![Alt Text](https://github.com/rivaanranawat/zoom-clone/tree/master/screenshots/zoom_clone1.jpg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone1.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone2.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone3.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone4.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone5.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone6.jpeg?raw=true)
+![Alt Text](https://github.com/RivaanRanawat/zoom-clone/blob/master/screenshots/zoom_clone7.jpeg?raw=true)

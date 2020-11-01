@@ -1,5 +1,11 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
+import 'package:jitsi_meet/feature_flag/feature_flag_enum.dart';
+import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:zoom_clone/universal_variables.dart';
 
@@ -10,10 +16,50 @@ class JoinMeetingScreen extends StatefulWidget {
 
 class _JoinMeetingScreenState extends State<JoinMeetingScreen> {
   TextEditingController _controller = TextEditingController();
+  TextEditingController roomController = TextEditingController();
   bool isVideoOff = true;
   bool isAudioMuted = true;
+  String username = "";
+  bool isData = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
-  joinMeeting() async {}
+  getData() async {
+    var uid = FirebaseAuth.instance.currentUser.uid;
+    DocumentSnapshot data = await userCollection.doc(uid).get();
+    setState(() {
+      username = data["username"];
+      isData = true;
+    });
+  }
+
+  joinMeeting() async {
+    try{
+      Map<FeatureFlagEnum, bool> featureeFlags = {
+        FeatureFlagEnum.WELCOME_PAGE_ENABLED : false,
+      };
+      if(Platform.isAndroid) {
+        featureeFlags[FeatureFlagEnum.CALL_INTEGRATION_ENABLED] = false;
+      } else if(Platform.isIOS) {
+        featureeFlags[FeatureFlagEnum.PIP_ENABLED] = false;
+      }
+
+      var options = JitsiMeetingOptions()
+        ..room = roomController.text // Required, spaces will be trimmed
+        ..userDisplayName = _controller.text == "" ? username: _controller.text
+        ..audioMuted = isAudioMuted
+        ..videoMuted = isVideoOff
+        ..featureFlags.addAll(featureeFlags);
+
+      await JitsiMeet.joinMeeting(options);
+    } catch(err) {
+      print(err);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +83,7 @@ class _JoinMeetingScreenState extends State<JoinMeetingScreen> {
                 height: 20,
               ),
               PinCodeTextField(
+                controller: roomController,
                 backgroundColor: Colors.white,
                 appContext: context,
                 autoDisposeControllers: false,

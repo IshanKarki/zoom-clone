@@ -37,7 +37,7 @@ class _CreateMeeetingScreenState extends State<CreateMeeetingScreen> {
             height: 40,
           ),
           isVis == true? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Code: ",

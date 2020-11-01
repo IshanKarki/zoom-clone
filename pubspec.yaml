@@ -39,7 +39,7 @@ dependencies:
   flutter_custom_clippers:
   image_picker:
   jitsi_meet:
-  
+  google_fonts:
 
 dev_dependencies:
   flutter_test:

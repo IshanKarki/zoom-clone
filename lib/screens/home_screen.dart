@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
+import 'package:zoom_clone/screens/meeting_screen.dart';
+import 'package:zoom_clone/screens/profile_screen.dart';
+import 'package:zoom_clone/universal_variables.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,14 +10,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int page = 0;
+  List pageOptions = [
+    MeetingScreen(),
+    ProfileScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: InkWell(
-        onTap: () {
-          FirebaseAuth.instance.signOut();
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.blue,
+        selectedLabelStyle: montserratStyle(17, Colors.blue),
+        unselectedItemColor: Colors.black,
+        unselectedLabelStyle: montserratStyle(17, Colors.black),
+        currentIndex: page,
+        onTap: (idx) {
+          setState(() {
+            page = idx;
+          });
         },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_call, size: 32,),
+            title: Text("Meetings"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, size: 32,),
+            title: Text("Profile"),
+          ),
+        ],
       ),
+      body: pageOptions[page],
     );
   }
 }

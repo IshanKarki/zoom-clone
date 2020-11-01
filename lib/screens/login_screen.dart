@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:zoom_clone/universal_variables.dart';
@@ -8,9 +9,36 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  loginUser() async {
+    try {
+      int ctr = 0;
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      Navigator.of(context).popUntil((route){
+        return ctr++ == 2;
+      });
+      Navigator.of(context).pop();
+    } catch (err) {
+      print(err);
+      var snackBar = SnackBar(
+        content: Text(
+          err.toString().substring(30),
+          style: ralewayStyle(15),
+        ),
+      );
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(
         children: [
           Container(
@@ -57,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.7,
                     child: TextField(
+                      controller: _emailController,
                       style: montserratStyle(18, Colors.black),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -74,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.7,
                     child: TextField(
+                      controller: _passwordController,
                       style: montserratStyle(18, Colors.black),
                       decoration: InputDecoration(
                         hintText: "Password",
@@ -86,10 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.text,
                     ),
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(
+                    height: 40,
+                  ),
                   InkWell(
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => LoginScreen())),
+                    onTap: loginUser,
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       height: 60,

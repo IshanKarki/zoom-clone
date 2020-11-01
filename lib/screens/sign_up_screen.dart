@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:zoom_clone/universal_variables.dart';
 
@@ -8,9 +10,42 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  signUpUser() async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text)
+          .then((value) {
+        String uid = value.user.uid;
+        userCollection.doc(uid).set({
+          "username": _usernameController.text,
+          "email": _emailController.text,
+          "password": _passwordController.text,
+          "uid": uid,
+        });
+      });
+      Navigator.of(context).pop();
+    } catch (err) {
+      print(err);
+      var snackBar = SnackBar(
+        content: Text(
+          err.toString().substring(30),
+          style: ralewayStyle(15),
+        ),
+      );
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(
         children: [
           Container(
@@ -23,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child: Center(
               child: Text(
-                "Login",
+                "Sign Up",
                 style: montserratStyle(45, Colors.black),
               ),
             ),
@@ -57,6 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.7,
                     child: TextField(
+                      controller: _usernameController,
                       style: montserratStyle(18, Colors.black),
                       decoration: InputDecoration(
                         hintText: "Username",
@@ -75,6 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.7,
                     child: TextField(
+                      controller: _emailController,
                       style: montserratStyle(18, Colors.black),
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -92,6 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width / 1.7,
                     child: TextField(
+                      controller: _passwordController,
                       style: montserratStyle(18, Colors.black),
                       decoration: InputDecoration(
                         hintText: "Password",
@@ -104,9 +142,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       keyboardType: TextInputType.text,
                     ),
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(
+                    height: 40,
+                  ),
                   InkWell(
-                    onTap: () {},
+                    onTap: signUpUser,
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       height: 60,

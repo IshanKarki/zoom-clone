@@ -1,16 +1,21 @@
 # zoom_clone
 
-A new Flutter project.
+This is a try to create Video Conferencing App, Zoom's clone using Flutter and Jitsi Meet.
 
-## Getting Started
+## App Functions
+Authentication
+Changing Username
+Create / Join Meetings
+Share Meeting Link
+Record The Meeting
+Live Stream
+Manage Password on Meeting
+Turn On & Off The Video
+Muting Audio
+Enabling Low Bandwith Mode
+Chat in the Meeting
+Raising Hand
+Changing the View in The Meeting
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+![Alt Text](https://github.com/rivaanranawat/zoom-clone/tree/master/screenshots/zoom_clone1.jpg?raw=true)

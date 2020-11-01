@@ -1,15 +1,13 @@
 import "package:flutter/material.dart";
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
-import 'package:zoom_clone/screens/login_screen.dart';
-import 'package:zoom_clone/screens/sign_up_screen.dart';
 import 'package:zoom_clone/universal_variables.dart';
 
-class NavigateAuthScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _NavigateAuthScreenState createState() => _NavigateAuthScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
             ),
             child: Center(
               child: Text(
-                "Zoom Clone",
+                "Login",
                 style: montserratStyle(45, Colors.black),
               ),
             ),
@@ -51,32 +49,64 @@ class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
                     topRight: Radius.circular(20)),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => LoginScreen())),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: GradientColors.blue),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: ralewayStyle(30, Colors.white),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.7,
+                    child: TextField(
+                      style: montserratStyle(18, Colors.black),
+                      decoration: InputDecoration(
+                        hintText: "Username",
+                        prefixIcon: Icon(Icons.person),
+                        hintStyle: ralewayStyle(
+                          20,
+                          Colors.grey,
                         ),
                       ),
+                      keyboardType: TextInputType.text,
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.7,
+                    child: TextField(
+                      style: montserratStyle(18, Colors.black),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          hintText: "Email",
+                          prefixIcon: Icon(Icons.email),
+                          hintStyle: ralewayStyle(
+                            20,
+                            Colors.grey,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.7,
+                    child: TextField(
+                      style: montserratStyle(18, Colors.black),
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        prefixIcon: Icon(Icons.lock),
+                        hintStyle: ralewayStyle(
+                          20,
+                          Colors.grey,
+                        ),
+                      ),
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  SizedBox(height: 40,),
                   InkWell(
-                    onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => SignUpScreen())),
+                    onTap: () {},
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       height: 60,
@@ -86,8 +116,8 @@ class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          "Sign Up",
-                          style: ralewayStyle(30, Colors.white),
+                          "Sign up",
+                          style: ralewayStyle(25, Colors.white),
                         ),
                       ),
                     ),

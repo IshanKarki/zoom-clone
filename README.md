@@ -34,5 +34,10 @@ Changing the View in The Meeting
 
 
 
+
+Now try changing the looks and make this yours.
+
+
+
 Well, yeah you can do that from this github but let's get a little more functional to provide it a meaning in our app, still working...
 And yes want to contribute go fork or star this because it really helped a lot of people.
